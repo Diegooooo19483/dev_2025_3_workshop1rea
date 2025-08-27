@@ -31,10 +31,42 @@ class Strings:
         return len([p for p in texto.split() if p.strip()])
     
     def palabras_mayus(self, texto):
-        return " ".join(p.capitalize() for p in texto.split())
+        """
+        Pon en Mayúscula la primera letra de cada palabra,
+        conservando los espacios originales.
+        """
+        resultado = ""
+        capitalize_next = True
+        for c in texto:
+            if c.isspace():
+                resultado += c
+                capitalize_next = True
+            else:
+                if capitalize_next:
+                    resultado += c.upper()
+                    capitalize_next = False
+                else:
+                    resultado += c
+        return resultado
     
     def eliminar_espacios_duplicados(self, texto):
-        return " ".join(texto.split())
+        """
+        Elimina espacios duplicados, pero conserva un espacio
+        al inicio y al final si existían.
+        """
+        if not texto:
+            return texto
+        resultado = []
+        prev_space = False
+        for c in texto:
+            if c == " ":
+                if not prev_space:
+                    resultado.append(c)
+                prev_space = True
+            else:
+                resultado.append(c)
+                prev_space = False
+        return "".join(resultado)
     
     def es_numero_entero(self, texto):
         if not texto:
@@ -57,6 +89,8 @@ class Strings:
         return self.cifrar_cesar(texto, -desplazamiento)
     
     def encontrar_subcadena(self, texto, subcadena):
+        if not subcadena:
+            return []
         posiciones = []
         for i in range(len(texto) - len(subcadena) + 1):
             if texto[i:i+len(subcadena)] == subcadena:
