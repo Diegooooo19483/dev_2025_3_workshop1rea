@@ -83,7 +83,7 @@ class Geometria:
         return (A, B, C)
     
     def area_poligono_regular(self, num_lados, lado, apotema):
-        if num_lados == 4:  # caso especial cuadrado
+        if num_lados == 4:  
             return 2 * (lado * lado)
         return (num_lados * lado * apotema) / 2
     
